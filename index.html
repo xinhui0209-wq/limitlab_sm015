@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LimitLab - Complete SM015 Learning Platform</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+  font-family: 'Segoe UI', Tahoma, sans-serif; 
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+header { 
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); 
+  color: white; 
+  padding: 50px 20px; 
+  text-align: center; 
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  border-bottom: 4px solid #4a69bd;
+}
+
+header h1 { 
+  font-size: 48px; 
+  margin-bottom: 15px; 
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  letter-spacing: 2px;
+}
+
+header p {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+nav { 
+  background: rgba(255,255,255,0.95); 
+  padding: 20px 15px; 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
+  position: sticky; 
+  top: 0; 
+  z-index: 100; 
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+nav button { 
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white; 
+  border: none; 
+  padding: 14px 20px; 
+  margin: 5px; 
+  border-radius: 25px; 
+  cursor: pointer; 
+  font-size: 14px; 
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+}
+
+nav button:hover { 
+  transform: translateY(-3px) scale(1.05); 
+  box-shadow: 0 6px 20px rgba(102,126,234,0.5);
+}
+
+nav button.active { 
+  background: linear-gradient(135deg, #1a1a2e, #0f3460);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+}
+
+.container { 
+  max-width: 1000px; 
+  margin: 40px auto; 
+  padding: 0 20px; 
+}
+
+section { 
+  background: white; 
+  padding: 40px; 
+  margin-bottom: 30px; 
+  border-radius: 20px; 
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+  display: none; 
+}
+
+section.active { 
+  display: block; 
+  animation: fadeIn 0.6s ease-out; 
+}
+
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(30px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+h2 { 
+  color: #1a1a2e; 
+  border-left: 6px solid #667eea; 
+  padding-left: 20px; 
+  margin-bottom: 30px; 
+  font-size: 32px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+h3 { 
+  color: #0f3460; 
+  margin: 30px 0 20px 0; 
+  font-size: 24px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.def-box { 
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb); 
+  padding: 25px; 
+  border-radius: 15px; 
+  border-left: 5px solid #2196F3; 
+  margin: 25px 0; 
+  font-size: 16px; 
+  line-height: 1.8;
+  box-shadow: 0 4px 15px rgba(33,150,243,0.2);
+}
+
+.ex-box { 
+  background: #f8f9fa; 
+  border-left: 5px solid #667eea; 
+  padding: 25px; 
+  margin: 25px 0; 
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.notation { 
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2); 
+  padding: 25px; 
+  border-radius: 15px; 
+  text-align: center; 
+  font-size: 22px; 
+  font-family: 'Courier New', monospace; 
+  margin: 25px 0; 
+  border: 3px solid #ff9800;
+  box-shadow: 0 4px 15px rgba(255,152,0,0.2);
+  font-weight: bold;
+}
+
+.warn-box { 
+  background: linear-gradient(135deg, #ffebee, #ffcdd2); 
+  padding: 25px; 
+  border-radius: 15px; 
+  border-left: 5px solid #f44336; 
+  margin: 25px 0; 
+  color: #c62828; 
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(244,67,54,0.2);
+}
+
+.step-box { 
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9); 
+  padding: 25px; 
+  border-radius: 15px; 
+  margin: 20px 0; 
+  border-left: 5px solid #4caf50;
+  box-shadow: 0 4px 15px rgba(76,175,80,0.2);
+}
+
+.hint-box { 
+  background: linear-gradient(135deg, #fff9c4, #fff59d); 
+  padding: 25px; 
+  border-radius: 15px; 
+  margin: 25px 0; 
+  border-left: 5px solid #fbc02d;
+  box-shadow: 0 4px 15px rgba(251,192,45,0.2);
+}
+
+.highlight { 
+  background: #ffeb3b; 
+  padding: 4px 10px; 
+  border-radius: 6px; 
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255,235,59,0.4);
+}
+
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  margin: 25px 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table th, table td { 
+  border: 2px solid #e0e0e0; 
+  padding: 15px; 
+  text-align: center; 
+}
+
+table th { 
+  background: linear-gradient(135deg, #667eea, #764ba2); 
+  color: white;
+  font-weight: 600;
+}
+
+table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+table tr:hover {
+  background: #e3f2fd;
+  transition: 0.3s;
+}
+
+/* GAME STYLES */
+.game-tab {
+  background: white !important;
+  color: #667eea !important;
+  border: 2px solid #667eea !important;
+  margin: 5px !important;
+}
+
+.game-tab.active {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  color: white !important;
+  border-color: transparent !important;
+}
+
+.game-container {
+  display: none;
+  margin-top: 30px;
+}
+
+.game-container.active-game {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 25px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: #1a1a2e;
+}
+
+.game-board {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  border: 3px solid #e0e0e0;
+  margin: 20px 0;
+}
+
+.game-question {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1a1a2e;
+  padding: 20px;
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  border-radius: 12px;
+}
+
+.game-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.game-options button {
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.game-options button:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+.game-result {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  display: none;
+}
+
+.game-result.show {
+  display: block;
+  animation: slideIn 0.4s;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.result-correct {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  color: #155724;
+  border: 3px solid #28a745;
+}
+
+.result-wrong {
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  color: #721c24;
+  border: 3px solid #dc3545;
+}
+
+.result-final {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  color: #856404;
+  border: 3px solid #ffc107;
+  font-size: 22px;
+}
+
+/* MATCH GAME */
+.match-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 20px;
+}
+
+.match-column h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #667eea;
+  font-size: 20px;
+}
+
+.match-item {
+  background: white;
+  border: 3px solid #e0e0e0;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.match-item:hover {
+  transform: scale(1.05);
+  border-color: #667eea;
+  box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+}
+
+.match-item.selected {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+.match-item.matched {
+  background: linear-gradient(135deg, #d4edda, #c8e6c9);
+  border-color: #28a745;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.match-item.wrong {
+  animation: shake 0.5s;
+  border-color: #dc3545;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* RACE GAME */
+.race-track {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  height: 80px;
+  border-radius: 15px;
+  position: relative;
+  margin: 20px 0;
+  overflow: hidden;
+  border: 3px solid #667eea;
+}
+
+.race-car {
+  font-size: 40px;
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left 0.3s ease;
+}
+
+.finish-line {
+  font-size: 50px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102,126,234,0.5);
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.quiz-fb { 
+  padding: 20px; 
+  margin: 20px 0; 
+  border-radius: 15px; 
+  display: none; 
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.quiz-fb.show { 
+  display: block; 
+  animation: slideIn 0.4s ease-out;
+}
+
+.correct { 
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9); 
+  color: #2e7d32; 
+  border: 3px solid #4caf50;
+  box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+}
+
+.incorrect { 
+  background: linear-gradient(135deg, #ffebee, #ffcdd2); 
+  color: #c62828; 
+  border: 3px solid #f44336;
+  box-shadow: 0 4px 15px rgba(244,67,54,0.3);
+}
+
+@keyframes celebrate {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.2) rotate(-5deg); }
+  75% { transform: scale(1.2) rotate(5deg); }
+}
+
+.celebrate {
+  animation: celebrate 0.6s ease;
+}
+
+canvas { 
+  max-width: 100%; 
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  header h1 { font-size: 36px; }
+  .match-board { grid-template-columns: 1fr; }
+  .game-options { grid-template-columns: 1fr; }
+  nav button { padding: 12px 16px; font-size: 13px; }
+  section { padding: 25px; }
+  h2 { font-size: 26px; }
+}
+.asymptote-images {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+.asymptote-images figure {
+  text-align: center;
+}
+
+.asymptote-images img {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.asymptote-images figcaption {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #555;
+  font-weight: 600;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎓 LimitLab</h1>
+  <p>Complete Interactive Learning Platform for Limits - SM015</p>
+</header>
+
+<nav>
+  <button onclick="showSec('intro')" class="active">📚 Introduction</button>
+  <button onclick="showSec('types')">📐 Types of Limits</button>
+  <button onclick="showSec('methods')">🔧 Methods</button>
+  <button onclick="showSec('infinity')">♾️ Limits at Infinity</button>
+  <button onclick="showSec('asymptotes')">📊 Asymptotes</button>
+  <button onclick="showSec('continuity')">🔗 Continuity</button>
+  <button onclick="showSec('quiz')">✅ Quiz</button>
+  <button onclick="showSec('games')">🎮 Games</button>
+</nav>
+
+<div class="container">
+
+<!-- INTRODUCTION -->
+<section id="intro" class="active">
+  <h2>📘 What is a Limit?</h2>
+  
+  <div class="def-box">
+    <p>A <strong>limit</strong> describes the value that a function approaches as the input value approaches a certain number. Limits help us understand the behavior of functions near a point, even if the function doesn't actually reach that point.</p>
+  </div>
+
+  <div class="notation">lim<sub>x→a</sub> f(x) = L</div>
+  <p style="text-align: center; margin: 20px 0; font-size: 17px;"><em>"The limit of f(x) as x approaches a equals L"</em></p>
+
+  <div class="hint-box">💡 <strong>Key Insight:</strong> Sometimes we can't work something out directly... but we can see what it should be as we get <strong>closer and closer</strong>!</div>
+
+  <h3>🔍 The Classic 0/0 Problem</h3>
+  
+  <div class="ex-box">
+    <p style="font-weight: bold; font-size: 18px;">Example: Evaluate lim<sub>x→3</sub> [(x² - 9)/(x - 3)]</p>
+    
+    <div class="step-box">
+      <strong>Step 1:</strong> Try direct substitution with x = 3
+      <div class="notation">(3² - 9)/(3 - 3) = (9 - 9)/(0) = 0/0</div>
+    </div>
+
+    <div class="warn-box">⚠️ 0/0 is INDETERMINATE! We cannot determine the answer this way.</div>
+
+    <div class="step-box"><strong>Step 2:</strong> Approach x = 3 from both sides</div>
+  </div>
+
+  <h3>📊 The Approach Table</h3>
+  <table>
+    <tr><th>x</th><th>(x² - 9)/(x - 3)</th></tr>
+    <tr><td>2.0</td><td>5.00000</td></tr>
+    <tr><td>2.9</td><td>5.90000</td></tr>
+    <tr><td>2.99</td><td>5.99000</td></tr>
+    <tr><td>2.999</td><td>5.99900</td></tr>
+    <tr><td>2.9999</td><td>5.99990</td></tr>
+    <tr><td>2.99999</td><td>5.99999</td></tr>
+    <tr style="background: linear-gradient(135deg, #4caf50, #66bb6a); color: white;"><td>→ 3 ←</td><td>→ 6 ←</td></tr>
+  </table>
+
+  <div class="step-box" style="text-align: center; font-size: 18px;">
+    <strong>🎉 Conclusion:</strong> As x gets close to 3, the function approaches <span class="highlight">6</span>
+    <div class="notation">lim<sub>x→3</sub> [(x² - 9)/(x - 3)] = 6</div>
+  </div>
+
+  <h3>🔧 Solving with Factorization</h3>
+  <div class="ex-box">
+    <div class="step-box">
+      <strong>Step 1:</strong> Factor the numerator: x² - 9 = (x-3)(x+3)<br>
+      <strong>Step 2:</strong> Cancel common factors: [(x-3)(x+3)]/(x-3) = x+3<br>
+      <strong>Step 3:</strong> Substitute x = 3: 3 + 3 = 6
+    </div>
+    <div class="notation"><strong>Answer: 6</strong></div>
+  </div>
+</section>
+
+<!-- TYPES OF LIMITS -->
+<section id="types">
+  <h2>📐 Types of Limits</h2>
+
+  <h3>1. One-Sided Limits</h3>
+  <div class="ex-box">
+    <p><strong>Left-hand limit:</strong> lim<sub>x→a⁻</sub> f(x) - approaching from the left (values less than a)</p>
+    <p><strong>Right-hand limit:</strong> lim<sub>x→a⁺</sub> f(x) - approaching from the right (values greater than a)</p>
+    <p><strong>Limit exists</strong> if and only if: lim<sub>x→a⁻</sub> f(x) = lim<sub>x→a⁺</sub> f(x)</p>
+  </div>
+
+  <h3>2. Piecewise Function Example</h3>
+  <div class="ex-box">
+    <p><strong>h(x) = { 4 - x², when x ≤ 1 | 2 + x², when x > 1 }</strong></p>
+    
+    <canvas id="pieceCanvas" width="700" height="400" style="max-width:100%;border:3px solid #ddd;border-radius:15px;margin:20px auto;display:block;"></canvas>
+    
+    <div style="text-align:center;margin:15px 0;">
+      <span style="display:inline-block;width:15px;height:15px;background:#ff6b6b;border-radius:50%;margin:0 5px;"></span> Left: 4-x²
+      <span style="display:inline-block;width:15px;height:15px;background:#4ecdc4;border-radius:50%;margin:0 5px 0 20px;"></span> Right: 2+x²
+      <span style="display:inline-block;width:15px;height:15px;background:#ffd93d;border-radius:50%;margin:0 5px 0 20px;"></span> Point (1, 3)
+    </div>
+    
+    <div class="step-box">
+      <strong>Left-hand limit:</strong> lim<sub>x→1⁻</sub> (4-x²) = 3<br>
+      <strong>Right-hand limit:</strong> lim<sub>x→1⁺</sub> (2+x²) = 3<br>
+      <strong>Value at x=1:</strong> h(1) = 3
+    </div>
+    <div class="notation">All equal 3 → Function is CONTINUOUS at x=1 ✓</div>
+  </div>
+
+  <h3>3. Absolute Value Limits</h3>
+  <div class="ex-box">
+    <p><strong>Example:</strong> lim<sub>x→3</sub> |x - 3|</p>
+    <div class="step-box">
+      lim<sub>x→3⁻</sub> -(x-3) = 0<br>
+      lim<sub>x→3⁺</sub> (x-3) = 0<br>
+      Therefore: lim<sub>x→3</sub> |x-3| = 0
+    </div>
+  </div>
+
+  <h3>4. Infinite Limits</h3>
+  <div class="ex-box">
+    <p>When a function grows without bound as x approaches a value.</p>
+    <div class="notation">lim<sub>x→0</sub> 1/x² = ∞</div>
+    <div class="step-box">
+      <strong>Example:</strong> lim<sub>x→4⁻</sub> 3/(x-4)² = +∞<br>
+      As x approaches 4 from the left, the denominator approaches 0, causing the fraction to grow infinitely large.
+    </div>
+  </div>
+</section>
+
+<!-- METHODS -->
+<section id="methods">
+  <h2>🔧 Solution Methods</h2>
+
+  <h3>Method 1: Factorization</h3>
+  <div class="ex-box">
+    <p><strong>Example:</strong> lim<sub>x→3</sub> [(x² - 9)/(x - 3)]</p>
+    <div class="step-box">
+      Step 1: Factor numerator: (x² - 9) = (x-3)(x+3)<br>
+      Step 2: Cancel common factors: [(x-3)(x+3)]/(x-3) = x+3<br>
+      Step 3: Substitute: 3 + 3 = 6
+    </div>
+    <div class="notation"><strong>Answer: 6</strong></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Example:</strong> lim<sub>x→-3</sub> (x³ + 27)/(x + 3)</p>
+    <div class="step-box">
+      Step 1: Factor using sum of cubes: x³ + 27 = (x+3)(x²-3x+9)<br>
+      Step 2: Cancel: [(x+3)(x²-3x+9)]/(x+3) = x²-3x+9<br>
+      Step 3: Substitute x = -3: (-3)² - 3(-3) + 9 = 9 + 9 + 9 = 27
+    </div>
+    <div class="notation"><strong>Answer: 27</strong></div>
+  </div>
+
+  <h3>Method 2: Conjugate Multiplication</h3>
+  <div class="ex-box">
+    <p><strong>Example:</strong> lim<sub>x→-1</sub> [(√(2+x) - 1)/(x+1)]</p>
+    <div class="step-box">
+      Step 1: Multiply by conjugate: [√(2+x) + 1]/[√(2+x) + 1]<br>
+      Step 2: Simplify numerator: (2+x-1) = x+1<br>
+      Step 3: Cancel: (x+1)/[(x+1)(√(2+x)+1)] = 1/(√(2+x)+1)<br>
+      Step 4: Substitute x = -1: 1/(√1+1) = 1/2
+    </div>
+    <div class="notation"><strong>Answer: 1/2</strong></div>
+  </div>
+
+  <h3>Method 3: Direct Substitution</h3>
+  <div class="hint-box">
+    <p>When the function is continuous at the point, simply substitute the value of x.</p>
+    <p><strong>Example:</strong> lim<sub>x→2</sub> (x² + 1)/(x² - 1) = (4+1)/(4-1) = 5/3</p>
+  </div>
+</section>
+
+<!-- LIMITS AT INFINITY -->
+<section id="infinity">
+  <h2>♾️ Limits at Infinity</h2>
+
+  <div class="def-box">
+    <p><strong>Important Rules:</strong></p>
+    <p>• lim<sub>x→∞</sub> 1/x<sup>n</sup> = 0</p>
+    <p>• lim<sub>x→-∞</sub> 1/x<sup>n</sup> = 0</p>
+    <p>• For ∞/∞ form: Divide by <strong>highest power</strong> in denominator</p>
+  </div>
+
+  <h3>Example 1: Basic Rational Function</h3>
+  <div class="ex-box">
+    <p><strong>Find:</strong> lim<sub>x→∞</sub> (2x+1)/(5x-2)</p>
+    <div class="step-box">
+      Step 1: Divide by x (highest power in denominator):<br>
+      = lim<sub>x→∞</sub> (2 + 1/x)/(5 - 2/x)<br><br>
+      Step 2: As x→∞, terms with x in denominator → 0:<br>
+      = (2 + 0)/(5 - 0) = 2/5
+    </div>
+    <div class="notation"><strong>Answer: 2/5</strong></div>
+  </div>
+
+  <h3>Example 2: Square Root Function</h3>
+  <div class="ex-box">
+    <p><strong>Find:</strong> lim<sub>x→+∞</sub> √[(2x+1)/(5x-2)]</p>
+    <div class="step-box">
+      Step 1: Take limit inside the square root:<br>
+      = √[lim<sub>x→∞</sub> (2x+1)/(5x-2)]<br><br>
+      Step 2: Divide by x: √[(2+1/x)/(5-2/x)]<br><br>
+      Step 3: As x→∞:<br>
+      = √(2/5)
+    </div>
+    <div class="notation"><strong>Answer: √(2/5)</strong></div>
+  </div>
+
+  <h3>Example 3: Limit at Negative Infinity</h3>
+  <div class="ex-box">
+    <p><strong>Find:</strong> lim<sub>x→-∞</sub> (√(x²+4))/(x+2)</p>
+    <div class="step-box">
+      Step 1: For negative infinity with square roots, divide by |x| = -x:<br>
+      = lim<sub>x→-∞</sub> (√(x²+4)/(-x))/(x+2)/(-x)<br><br>
+      Step 2: Simplify:<br>
+      = lim<sub>x→-∞</sub> -√(1+4/x²)/(1+2/x)<br><br>
+      Step 3: As x→-∞:<br>
+      = -√1/1 = -1
+    </div>
+    <div class="notation"><strong>Answer: -1</strong></div>
+  </div>
+
+  <h3>Polynomial Degrees Quick Rules</h3>
+  <div class="hint-box">
+    <p><strong>Quick Rules:</strong></p>
+    <p>• If degree of numerator > denominator: limit = ±∞</p>
+    <p>• If degree of numerator < denominator: limit = 0</p>
+    <p>• If degree of numerator = denominator: limit = ratio of leading coefficients</p>
+  </div>
+</section>
+
+<!-- ASYMPTOTES -->
+<section id="asymptotes">
+  <h2>📊 Asymptotes</h2>
+<div class="asymptote-images">
+  <figure>
+    <img src="images/vertical-asymptote.png" alt="Vertical Asymptote Graph">
+    <figcaption>Vertical Asymptote (x = a)</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/horizontal-asymptote.png" alt="Horizontal Asymptote Graph">
+    <figcaption>Horizontal Asymptote (y = b)</figcaption>
+  </figure>
+</div>
+
+  <h3>Vertical Asymptotes</h3>
+  <div class="def-box">
+    <p>A line x = a is a vertical asymptote if:</p>
+    <p>lim<sub>x→a⁻</sub> f(x) = ±∞ or lim<sub>x→a⁺</sub> f(x) = ±∞</p>
+    <p><strong>How to find:</strong> Set denominator = 0 and solve for x</p>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Example:</strong> f(x) = (x+3)/(x+2)</p>
+    <div class="step-box">
+      Set x + 2 = 0 → x = -2<br>
+      lim<sub>x→-2⁺</sub> = +∞<br>
+      lim<sub>x→-2⁻</sub> = -∞<br>
+      <strong>Vertical asymptote: x = -2</strong>
+    </div>
+  </div>
+
+  <h3>Horizontal Asymptotes</h3>
+  <div class="def-box">
+    <p>A line y = b is a horizontal asymptote if:</p>
+    <p>lim<sub>x→∞</sub> f(x) = b or lim<sub>x→-∞</sub> f(x) = b</p>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Example:</strong> f(x) = x/(x-2)</p>
+    <div class="step-box">
+      lim<sub>x→∞</sub> x/(x-2) = lim<sub>x→∞</sub> 1/(1-2/x) = 1/1 = 1<br>
+      <strong>Horizontal asymptote: y = 1</strong><br>
+      <strong>Vertical asymptote: x = 2</strong>
+    </div>
+  </div>
+
+  <h3>Practice Problem</h3>
+  <div class="ex-box">
+    <p><strong>Find the vertical and horizontal asymptotes of f(x) = x/(x-2)</strong></p>
+    <div class="step-box">
+      <strong>Vertical Asymptote:</strong> Set x - 2 = 0 → <strong>x = 2</strong><br>
+      <strong>Horizontal Asymptote:</strong> lim<sub>x→∞</sub> x/(x-2) = 1 → <strong>y = 1</strong>
+    </div>
+  </div>
+</section>
+
+<!-- CONTINUITY -->
+<section id="continuity">
+  <h2>🔗 Continuity</h2>
+
+  <div class="def-box">
+    <p><strong>A function f(x) is continuous at x = c if:</strong></p>
+    <p>1. f(c) exists (function is defined)</p>
+    <p>2. lim<sub>x→c</sub> f(x) exists (limit exists)</p>
+    <p>3. lim<sub>x→c</sub> f(x) = f(c) (limit equals function value)</p>
+  </div>
+
+  <h3>Types of Discontinuity</h3>
+  <div class="ex-box">
+    <p><strong>1. Removable (Hole):</strong> Limit exists but ≠ f(c) or f(c) undefined</p>
+    <p><strong>2. Jump:</strong> Left and right limits exist but are different</p>
+    <p><strong>3. Infinite:</strong> Function approaches ±∞</p>
+  </div>
+
+  <h3>Continuity Example</h3>
+  <div class="ex-box">
+    <p><strong>Is f(x) = (x²-4)/(x-2) continuous at x = 2?</strong></p>
+    <div class="step-box">
+      1. f(2) = 0/0 → <strong>undefined</strong> ✗<br>
+      2. lim<sub>x→2</sub> (x²-4)/(x-2) = lim<sub>x→2</sub> (x+2) = 4 ✓<br>
+      3. Since f(2) doesn't exist, <strong>NOT continuous</strong><br><br>
+      <strong>Type:</strong> Removable discontinuity (hole at x=2)
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <h2>✅ Comprehensive Quiz</h2>
+  <p style="text-align: center; font-size: 18px; margin-bottom: 30px;">Test your understanding with these 13 questions!</p>
+
+  <div class="ex-box">
+    <p><strong>Q1:</strong> lim<sub>x→3</sub> (3x+4)/(x-2) = ?</p>
+    <button onclick="checkQ(1,11,this)">11</button>
+    <button onclick="checkQ(1,15,this)">15</button>
+    <button onclick="checkQ(1,13,this)">13</button>
+    <div id="f1" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q2:</strong> lim<sub>x→2</sub> (x²+1)/(x²-1) = ?</p>
+    <button onclick="checkQ(2,'3/5',this)">3/5</button>
+    <button onclick="checkQ(2,'5/3',this)">5/3</button>
+    <button onclick="checkQ(2,'1',this)">1</button>
+    <div id="f2" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q3:</strong> lim<sub>x→-3</sub> √(2x+8) = ?</p>
+    <button onclick="checkQ(3,'2',this)">2</button>
+    <button onclick="checkQ(3,'0',this)">0</button>
+    <button onclick="checkQ(3,'√2',this)">√2</button>
+    <div id="f3" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q4:</strong> lim<sub>x→-2</sub> (x² + 3) = ?</p>
+    <button onclick="checkQ(4,5,this)">5</button>
+    <button onclick="checkQ(4,7,this)">7</button>
+    <button onclick="checkQ(4,9,this)">9</button>
+    <div id="f4" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q5:</strong> lim<sub>x→3</sub> (x²-x-6)/(3-x) = ?</p>
+    <button onclick="checkQ(5,5,this)">5</button>
+    <button onclick="checkQ(5,0,this)">0</button>
+    <button onclick="checkQ(5,-5,this)">-5</button>
+    <div id="f5" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q6:</strong> lim<sub>x→0</sub> (e<sup>x</sup> - e<sup>-x</sup>)/(e<sup>2x</sup> - e<sup>-2x</sup>) = ?</p>
+    <button onclick="checkQ(6,'1',this)">1</button>
+    <button onclick="checkQ(6,'2',this)">2</button>
+    <button onclick="checkQ(6,'1/2',this)">1/2</button>
+    <div id="f6" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q7:</strong> lim<sub>x→5</sub> (25-x²)/(3x-12-√3) = ?</p>
+    <button onclick="checkQ(7,'20√3/3',this)">20√3/3</button>
+    <button onclick="checkQ(7,'0',this)">0</button>
+    <button onclick="checkQ(7,'-20√3/3',this)">-20√3/3</button>
+    <div id="f7" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q8:</strong> lim<sub>x→∞</sub> (2x+1)/(5x-2) = ?</p>
+    <button onclick="checkQ(8,'1/2',this)">1/2</button>
+    <button onclick="checkQ(8,'5/2',this)">5/2</button>
+    <button onclick="checkQ(8,'2/5',this)">2/5</button>
+    <div id="f8" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q9:</strong> lim<sub>x→-∞</sub> (√(x²+4))/(x+2) = ?</p>
+    <button onclick="checkQ(9,1,this)">1</button>
+    <button onclick="checkQ(9,-1,this)">-1</button>
+    <button onclick="checkQ(9,0,this)">0</button>
+    <div id="f9" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q10:</strong> lim<sub>x→∞</sub> √[(2x+1)/(5x-2)] = ?</p>
+    <button onclick="checkQ(10,'2/5',this)">2/5</button>
+    <button onclick="checkQ(10,'√5/2',this)">√5/2</button>
+    <button onclick="checkQ(10,'√(2/5)',this)">√(2/5)</button>
+    <div id="f10" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q11:</strong> lim<sub>x→-3</sub> (x³+27)/(x+3) = ?</p>
+    <button onclick="checkQ(11,9,this)">9</button>
+    <button onclick="checkQ(11,-27,this)">-27</button>
+    <button onclick="checkQ(11,27,this)">27</button>
+    <div id="f11" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q12:</strong> lim<sub>x→4⁻</sub> 3/(x-4)² = ?</p>
+    <button onclick="checkQ(12,'-∞',this)">-∞</button>
+    <button onclick="checkQ(12,'0',this)">0</button>
+    <button onclick="checkQ(12,'+∞',this)">+∞</button>
+    <div id="f12" class="quiz-fb"></div>
+  </div>
+
+  <div class="ex-box">
+    <p><strong>Q13:</strong> For f(x) = x/(x-2), find the vertical and horizontal asymptotes.</p>
+    <button onclick="checkQ(13,'x=1, y=2',this)">x=1, y=2</button>
+    <button onclick="checkQ(13,'x=-2, y=1',this)">x=-2, y=1</button>
+    <button onclick="checkQ(13,'x=2, y=1',this)">x=2, y=1</button>
+    <div id="f13" class="quiz-fb"></div>
+  </div>
+
+  <div id="score" class="step-box" style="text-align:center;display:none;"></div>
+</section>
+
+<!-- GAMES SECTION -->
+<section id="games">
+  <h2>🎮 Interactive Games & Challenges</h2>
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button onclick="showGame('speed')" class="game-tab active" id="tab-speed">⚡ Speed Challenge</button>
+    <button onclick="showGame('match')" class="game-tab" id="tab-match">🎯 Match Game</button>
+    <button onclick="showGame('identify')" class="game-tab" id="tab-identify">🔍 Method Master</button>
+    <button onclick="showGame('race')" class="game-tab" id="tab-race">🏁 Limit Race</button>
+  </div>
+
+  <!-- GAME 1: SPEED CHALLENGE -->
+  <div id="game-speed" class="game-container active-game">
+    <h3>⚡ Speed Challenge - Answer as many as you can in 60 seconds!</h3>
+    <div class="game-stats">
+      <div class="stat-item">
+        <span class="stat-label">⏱️ Time</span>
+        <span id="speed-timer" class="stat-value">60</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">🎯 Score</span>
+        <span id="speed-score" class="stat-value">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">🔥 Streak</span>
+        <span id="speed-streak" class="stat-value">0</span>
+      </div>
+    </div>
+    
+    <div class="game-board">
+      <div id="speed-question" class="game-question">Ready to test your speed?</div>
+      <div id="speed-options" class="game-options"></div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="speed-start" onclick="startSpeedGame()" style="font-size: 18px; padding: 15px 40px;">
+        🚀 START GAME
+      </button>
+    </div>
+    
+    <div id="speed-result" class="game-result"></div>
+  </div>
+
+  <!-- GAME 2: MATCH THE LIMIT -->
+  <div id="game-match" class="game-container">
+    <h3>🎯 Match the Limit - Connect problems to their answers!</h3>
+    <div class="game-stats">
+      <div class="stat-item">
+        <span class="stat-label">✅ Matches</span>
+        <span id="match-score" class="stat-value">0/8</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">🎯 Accuracy</span>
+        <span id="match-accuracy" class="stat-value">100%</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">📊 Moves</span>
+        <span id="match-moves" class="stat-value">0</span>
+      </div>
+    </div>
+    
+    <div class="match-board">
+      <div class="match-column">
+        <h4>📝 Problems</h4>
+        <div class="match-item" onclick="selectMatch(this, 'p1')" data-pair="1">
+          lim<sub>x→2</sub> x²
+        </div>
+        <div class="match-item" onclick="selectMatch(this, 'p2')" data-pair="2">
+          lim<sub>x→0</sub> 1/x²
+        </div>
+        <div class="match-item" onclick="selectMatch(this, 'p3')" data-pair="3">
+          lim<sub>x→∞</sub> 1/x
+        </div>
+        <div class="match-item" onclick="selectMatch(this, 'p4')" data-pair="4">
+          lim<sub>x→1</sub> (x²-1)/(x-1)
+        </div>
+        <div class="match-item" onclick="selectMatch(this, 'p5')" data-pair="5">
+          lim<sub>x→3</sub> (x+1)
+        </div>
+        <div class="match-item" onclick="selectMatch(this, 'p6')" data-pair="6">
+          lim<sub>x→∞</sub> (2x+1)/(5x-2)
+        </div>
+        <div class="match-item" onclick="selectMatch(this, 'p7')" data-pair="7">
+          lim<sub>x→-3</sub> (x³+27)/(x+3)
+        </div>
+        <div class="match-item" onclick="selectMatch(this, 'p8')" data-pair="8">
+          lim<sub>x→-2</sub> (x²+3)
+        </div>
+      </div>
+      
+      <div class="match-column">
+        <h4>💯 Answers</h4>
+        <div class="match-item" onclick="selectMatch(this, 'a1')" data-pair="1">4</div>
+        <div class="match-item" onclick="selectMatch(this, 'a2')" data-pair="2">∞</div>
+        <div class="match-item" onclick="selectMatch(this, 'a3')" data-pair="3">0</div>
+        <div class="match-item" onclick="selectMatch(this, 'a4')" data-pair="4">2</div>
+        <div class="match-item" onclick="selectMatch(this, 'a5')" data-pair="5">4</div>
+        <div class="match-item" onclick="selectMatch(this, 'a6')" data-pair="6">2/5</div>
+        <div class="match-item" onclick="selectMatch(this, 'a7')" data-pair="7">27</div>
+        <div class="match-item" onclick="selectMatch(this, 'a8')" data-pair="8">7</div>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+      <button onclick="resetMatchGame()">🔄 Reset Game</button>
+    </div>
+    
+    <div id="match-result" class="game-result"></div>
+  </div>
+
+  <!-- GAME 3: METHOD MASTER -->
+  <div id="game-identify" class="game-container">
+    <h3>🔍 Method Master - Choose the best solution method!</h3>
+    <div class="game-stats">
+      <div class="stat-item">
+        <span class="stat-label">📚 Question</span>
+        <span id="identify-progress" class="stat-value">1/5</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">✅ Correct</span>
+        <span id="identify-score" class="stat-value">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">⭐ Grade</span>
+        <span id="identify-grade" class="stat-value">-</span>
+      </div>
+    </div>
+    
+    <div class="game-board">
+      <div id="identify-question" class="game-question">Loading...</div>
+      <div id="identify-options" class="game-options"></div>
+    </div>
+    
+    <div id="identify-result" class="game-result"></div>
+  </div>
+
+  <!-- GAME 4: LIMIT RACE -->
+  <div id="game-race" class="game-container">
+    <h3>🏁 Limit Race - Reach the finish line!</h3>
+    <div class="game-stats">
+      <div class="stat-item">
+        <span class="stat-label">🏆 Level</span>
+        <span id="race-level" class="stat-value">1</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">⏰ Time</span>
+        <span id="race-timer" class="stat-value">15s</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">💝 Lives</span>
+        <span id="race-lives" class="stat-value">❤️❤️❤️</span>
+      </div>
+    </div>
+    
+    <div class="race-track">
+      <div class="race-car" id="race-car">🏎️</div>
+      <div class="finish-line">🏁</div>
+    </div>
+    
+    <div class="game-board">
+      <div id="race-question" class="game-question">Get ready to race!</div>
+      <div id="race-options" class="game-options"></div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="race-start" onclick="startRaceGame()" style="font-size: 18px; padding: 15px 40px;">
+        🏁 START RACE
+      </button>
+    </div>
+    
+    <div id="race-result" class="game-result"></div>
+  </div>
+
+</section>
+
+</div>
+
+<script>
+// Navigation
+function showSec(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  
+  if (id === 'types') {
+    setTimeout(() => drawPiece(), 100);
+  }
+  
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function showGame(game) {
+  document.querySelectorAll('.game-container').forEach(g => g.classList.remove('active-game'));
+  document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('game-' + game).classList.add('active-game');
+  document.getElementById('tab-' + game).classList.add('active');
+  
+  // Initialize games
+  if (game === 'identify') {
+    if (shuffledIdentifyQuestions.length === 0) {
+      shuffledIdentifyQuestions = shuffleArray(identifyQuestions);
+    }
+    loadIdentifyQuestion();
+  }
+  
+  if (game === 'match') {
+    initMatchGame();
+  }
+}
+
+// Piecewise Graph Drawing
+function drawPiece() {
+  const canvas = document.getElementById('pieceCanvas');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+  const cx = w / 2;
+  const cy = h / 2;
+  const scale = 60;
+  
+  ctx.clearRect(0, 0, w, h);
+  
+  // Draw grid
+  ctx.strokeStyle = '#f0f0f0';
+  ctx.lineWidth = 1;
+  for (let i = -10; i <= 10; i++) {
+    ctx.beginPath();
+    ctx.moveTo(cx + i * scale, 0);
+    ctx.lineTo(cx + i * scale, h);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(0, cy - i * scale);
+    ctx.lineTo(w, cy - i * scale);
+    ctx.stroke();
+  }
+  
+  // Draw axes
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(0, cy);
+  ctx.lineTo(w, cy);
+  ctx.stroke();
+  
+  ctx.beginPath();
+  ctx.moveTo(cx, 0);
+  ctx.lineTo(cx, h);
+  ctx.stroke();
+  
+  // Draw axis labels
+  ctx.fillStyle = '#333';
+  ctx.font = '14px Arial';
+  ctx.textAlign = 'center';
+  
+  for (let i = -5; i <= 5; i++) {
+    if (i !== 0) {
+      ctx.fillText(i, cx + i * scale, cy + 20);
+      ctx.fillText(i, cx - 20, cy - i * scale);
+    }
+  }
+  
+  // Draw left function: y = 4 - x² for x ≤ 1
+  ctx.strokeStyle = '#ff6b6b';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  
+  for (let x = -3; x <= 1; x += 0.1) {
+    const y = 4 - x * x;
+    const px = cx + x * scale;
+    const py = cy - y * scale;
+    
+    if (x === -3) {
+      ctx.moveTo(px, py);
+    } else {
+      ctx.lineTo(px, py);
+    }
+  }
+  ctx.stroke();
+  
+  // Draw right function: y = 2 + x² for x > 1
+  ctx.strokeStyle = '#4ecdc4';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  
+  for (let x = 1.01; x <= 4; x += 0.1) {
+    const y = 2 + x * x;
+    const px = cx + x * scale;
+    const py = cy - y * scale;
+    
+    if (x === 1.01) {
+      ctx.moveTo(px, py);
+    } else {
+      ctx.lineTo(px, py);
+    }
+  }
+  ctx.stroke();
+  
+  // Draw the point at x = 1
+  const x1 = 1;
+  const y1 = 3;
+  
+  ctx.fillStyle = '#ffd93d';
+  ctx.beginPath();
+  ctx.arc(cx + x1 * scale, cy - y1 * scale, 8, 0, 2 * Math.PI);
+  ctx.fill();
+  
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  
+  // Add labels
+  ctx.fillStyle = '#ff6b6b';
+  ctx.font = 'bold 16px Arial';
+  ctx.fillText('4-x²', cx - 2*scale, cy - 3*scale);
+  
+  ctx.fillStyle = '#4ecdc4';
+  ctx.fillText('2+x²', cx + 2.5*scale, cy - 8*scale);
+}
+
+// Quiz System
+let qScore = 0, qDone = new Set();
+const qAns = {
+  1: 13, 
+  2: '5/3', 
+  3: '√2', 
+  4: 7, 
+  5: -5, 
+  6: '1/2', 
+  7: '-20√3/3',
+  8: '2/5',
+  9: -1,
+  10: '√(2/5)',
+  11: 27,
+  12: '+∞',
+  13: 'x=2, y=1'
+};
+
+function checkQ(q, ans, btn) {
+  const fb = document.getElementById('f' + q);
+  const ok = qAns[q] == ans;
+  
+  if (ok) {
+    fb.className = 'quiz-fb correct show';
+    fb.textContent = '✓ Correct! Well done! 🎉';
+    if (!qDone.has(q)) { 
+      qScore++; 
+      qDone.add(q); 
+      btn.classList.add('celebrate');
+    }
+    btn.parentElement.querySelectorAll('button').forEach(b => b.disabled = true);
+  } else {
+    fb.className = 'quiz-fb incorrect show';
+    fb.textContent = '✗ Not quite! Try again or review the examples.';
+  }
+  
+  if (qDone.size === 13) {
+    const scoreDiv = document.getElementById('score');
+    const percent = Math.round((qScore/13)*100);
+    scoreDiv.textContent = `🎊 Quiz Complete! Score: ${qScore}/13 (${percent}%)` + 
+      (qScore >= 12 ? ' - Perfect! 🏆' : qScore >= 10 ? ' - Excellent! 🌟' : qScore >= 7 ? ' - Good job! 👍' : ' - Keep practicing! 💪');
+    scoreDiv.style.display = 'block';
+    scoreDiv.classList.add('celebrate');
+  }
+}
+
+// Shuffle utility function
+function shuffleArray(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ========== GAME 1: SPEED CHALLENGE ==========
+let speedTimer, speedTime = 60, speedScore = 0, speedStreak = 0;
+const speedQuestions = [
+  {q: 'lim<sub>x→3</sub> (3x+4)/(x-2)', a: 13, opts: [13, 11, 15, 10]},
+  {q: 'lim<sub>x→2</sub> (x²+1)/(x²-1)', a: '5/3', opts: ['5/3', '3/5', '1', '2']},
+  {q: 'lim<sub>x→-2</sub> (x²+3)', a: 7, opts: [7, 5, 9, 6]},
+  {q: 'lim<sub>x→∞</sub> (2x+1)/(5x-2)', a: '2/5', opts: ['2/5', '1/2', '5/2', '0']},
+  {q: 'lim<sub>x→2</sub> x²', a: 4, opts: [4, 2, 8, 0]},
+  {q: 'lim<sub>x→0</sub> (x+5)', a: 5, opts: [5, 0, 10, -5]},
+  {q: 'lim<sub>x→3</sub> 2x', a: 6, opts: [6, 3, 9, 2]},
+  {q: 'lim<sub>x→1</sub> (x³)', a: 1, opts: [1, 0, 3, 2]},
+  {q: 'lim<sub>x→-1</sub> x²', a: 1, opts: [1, -1, 0, 2]},
+  {q: 'lim<sub>x→∞</sub> 1/x', a: 0, opts: [0, 1, '∞', -1]},
+  {q: 'lim<sub>x→-3</sub> √(2x+8)', a: '√2', opts: ['√2', '2', '0', '√8']},
+  {q: 'lim<sub>x→3</sub> (x²-x-6)/(3-x)', a: -5, opts: [-5, 5, 0, -3]},
+  {q: 'lim<sub>x→-3</sub> (x³+27)/(x+3)', a: 27, opts: [27, 9, -27, 18]},
+];
+
+let currentSpeedQ = 0;
+let shuffledSpeedQuestions = [];
+
+function startSpeedGame() {
+  speedScore = 0;
+  speedStreak = 0;
+  speedTime = 60;
+  currentSpeedQ = 0;
+  
+  // Shuffle questions at start
+  shuffledSpeedQuestions = shuffleArray(speedQuestions);
+  
+  document.getElementById('speed-score').textContent = '0';
+  document.getElementById('speed-streak').textContent = '0';
+  document.getElementById('speed-start').disabled = true;
+  document.getElementById('speed-result').classList.remove('show');
+  
+  loadSpeedQuestion();
+  
+  speedTimer = setInterval(() => {
+    speedTime--;
+    document.getElementById('speed-timer').textContent = speedTime;
+    
+    if (speedTime <= 0) {
+      endSpeedGame();
+    }
+  }, 1000);
+}
+
+function loadSpeedQuestion() {
+  if (currentSpeedQ >= shuffledSpeedQuestions.length) {
+    // Reshuffle when we run out of questions
+    shuffledSpeedQuestions = shuffleArray(speedQuestions);
+    currentSpeedQ = 0;
+  }
+  
+  const q = shuffledSpeedQuestions[currentSpeedQ];
+  document.getElementById('speed-question').innerHTML = q.q + ' = ?';
+  
+  const optionsDiv = document.getElementById('speed-options');
+  optionsDiv.innerHTML = '';
+  
+  // Shuffle the options
+  const shuffledOpts = shuffleArray(q.opts);
+  
+  shuffledOpts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.onclick = () => checkSpeedAnswer(opt, q.a);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function checkSpeedAnswer(selected, correct) {
+  if (selected == correct) {
+    speedScore++;
+    speedStreak++;
+    document.getElementById('speed-score').textContent = speedScore;
+    document.getElementById('speed-streak').textContent = speedStreak;
+    currentSpeedQ++;
+    loadSpeedQuestion();
+  } else {
+    speedStreak = 0;
+    document.getElementById('speed-streak').textContent = '0';
+  }
+}
+
+function endSpeedGame() {
+  clearInterval(speedTimer);
+  document.getElementById('speed-start').disabled = false;
+  
+  const result = document.getElementById('speed-result');
+  result.className = 'game-result result-final show';
+  
+  let grade = '';
+  if (speedScore >= 15) grade = '🏆 MASTER!';
+  else if (speedScore >= 10) grade = '🌟 EXPERT!';
+  else if (speedScore >= 5) grade = '👍 GOOD!';
+  else grade = '💪 KEEP PRACTICING!';
+  
+  result.innerHTML = `
+    <div style="font-size: 28px; margin-bottom: 15px;">TIME'S UP!</div>
+    <div>Final Score: <strong>${speedScore}</strong></div>
+    <div style="margin-top: 10px; font-size: 24px;">${grade}</div>
+  `;
+}
+
+// ========== GAME 2: MATCH GAME ==========
+let matchSelected = null;
+let matchCount = 0;
+let matchMoves = 0;
+let matchErrors = 0;
+
+const matchProblems = [
+  {id: 1, problem: 'lim<sub>x→2</sub> x²', answer: '4'},
+  {id: 2, problem: 'lim<sub>x→0</sub> 1/x²', answer: '∞'},
+  {id: 3, problem: 'lim<sub>x→∞</sub> 1/x', answer: '0'},
+  {id: 4, problem: 'lim<sub>x→1</sub> (x²-1)/(x-1)', answer: '2'},
+  {id: 5, problem: 'lim<sub>x→3</sub> (x+1)', answer: '4'},
+  {id: 6, problem: 'lim<sub>x→∞</sub> (2x+1)/(5x-2)', answer: '2/5'},
+  {id: 7, problem: 'lim<sub>x→-3</sub> (x³+27)/(x+3)', answer: '27'},
+  {id: 8, problem: 'lim<sub>x→-2</sub> (x²+3)', answer: '7'},
+];
+
+function initMatchGame() {
+  const shuffledProblems = shuffleArray(matchProblems);
+  const shuffledAnswers = shuffleArray(matchProblems);
+  
+  const problemColumn = document.querySelector('.match-column:first-child');
+  const answerColumn = document.querySelector('.match-column:last-child');
+  
+  // Clear existing items (keep headers)
+  const problemItems = problemColumn.querySelectorAll('.match-item');
+  const answerItems = answerColumn.querySelectorAll('.match-item');
+  problemItems.forEach(item => item.remove());
+  answerItems.forEach(item => item.remove());
+  
+  // Add shuffled problems
+  shuffledProblems.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'match-item';
+    div.innerHTML = item.problem;
+    div.setAttribute('data-pair', item.id);
+    div.onclick = function() { selectMatch(this, 'p' + idx); };
+    problemColumn.appendChild(div);
+  });
+  
+  // Add shuffled answers
+  shuffledAnswers.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'match-item';
+    div.innerHTML = item.answer;
+    div.setAttribute('data-pair', item.id);
+    div.onclick = function() { selectMatch(this, 'a' + idx); };
+    answerColumn.appendChild(div);
+  });
+}
+
+function selectMatch(element, id) {
+  if (element.classList.contains('matched')) return;
+  
+  if (matchSelected === null) {
+    document.querySelectorAll('.match-item').forEach(item => {
+      item.classList.remove('selected');
+    });
+    element.classList.add('selected');
+    matchSelected = {element, id, pair: element.dataset.pair};
+  } else {
+    matchMoves++;
+    document.getElementById('match-moves').textContent = matchMoves;
+    
+    if (matchSelected.pair === element.dataset.pair) {
+      matchSelected.element.classList.remove('selected');
+      matchSelected.element.classList.add('matched');
+      element.classList.add('matched');
+      
+      matchCount++;
+      document.getElementById('match-score').textContent = matchCount + '/8';
+      
+      if (matchCount === 8) {
+        const accuracy = Math.round((8 / matchMoves) * 100);
+        document.getElementById('match-accuracy').textContent = accuracy + '%';
+        
+        setTimeout(() => {
+          const result = document.getElementById('match-result');
+          result.className = 'game-result result-final show';
+          result.innerHTML = `
+            <div style="font-size: 28px; margin-bottom: 15px;">🎉 COMPLETE!</div>
+            <div>Moves: ${matchMoves} | Accuracy: ${accuracy}%</div>
+            <div style="margin-top: 10px;">${accuracy >= 90 ? '🏆 PERFECT!' : accuracy >= 70 ? '⭐ GREAT!' : '👍 GOOD JOB!'}</div>
+          `;
+        }, 500);
+      }
+      
+      matchSelected = null;
+    } else {
+      matchErrors++;
+      const accuracy = Math.round(((matchMoves - matchErrors) / matchMoves) * 100);
+      document.getElementById('match-accuracy').textContent = accuracy + '%';
+      
+      element.classList.add('wrong');
+      matchSelected.element.classList.add('wrong');
+      
+      setTimeout(() => {
+        element.classList.remove('wrong', 'selected');
+        matchSelected.element.classList.remove('wrong', 'selected');
+        matchSelected = null;
+      }, 600);
+    }
+  }
+}
+
+function resetMatchGame() {
+  matchSelected = null;
+  matchCount = 0;
+  matchMoves = 0;
+  matchErrors = 0;
+  
+  document.getElementById('match-score').textContent = '0/8';
+  document.getElementById('match-moves').textContent = '0';
+  document.getElementById('match-accuracy').textContent = '100%';
+  document.getElementById('match-result').classList.remove('show');
+  
+  // Reinitialize with shuffled items
+  initMatchGame();
+}
+
+// ========== GAME 3: METHOD MASTER ==========
+let identifyQuestions = [
+  {
+    q: 'lim<sub>x→3</sub> (x²-9)/(x-3)',
+    methods: ['Factorization', 'Direct Substitution', 'Conjugate', 'Highest Power'],
+    correct: 0,
+    explain: 'Factor to (x-3)(x+3)/(x-3) then cancel!'
+  },
+  {
+    q: 'lim<sub>x→0</sub> (√(x+1)-1)/x',
+    methods: ['Conjugate Multiplication', 'Direct Substitution', 'Factorization', 'Highest Power'],
+    correct: 0,
+    explain: 'Multiply by conjugate √(x+1)+1!'
+  },
+  {
+    q: 'lim<sub>x→∞</sub> (3x²+1)/(x²-2)',
+    methods: ['Divide by Highest Power', 'Factorization', 'Direct Substitution', 'Conjugate'],
+    correct: 0,
+    explain: 'Divide all terms by x²!'
+  },
+  {
+    q: 'lim<sub>x→5</sub> (2x+3)',
+    methods: ['Direct Substitution', 'Factorization', 'Conjugate', 'Highest Power'],
+    correct: 0,
+    explain: 'Just plug in x=5!'
+  },
+  {
+    q: 'lim<sub>x→-3</sub> (x³+27)/(x+3)',
+    methods: ['Factorization', 'Direct Substitution', 'Conjugate', 'Highest Power'],
+    correct: 0,
+    explain: 'Factor using sum of cubes!'
+  }
+];
+
+let identifyIndex = 0;
+let identifyCorrect = 0;
+let shuffledIdentifyQuestions = [];
+let currentMethodsMap = {}; // To track shuffled method positions
+
+function loadIdentifyQuestion() {
+  if (identifyIndex >= shuffledIdentifyQuestions.length) {
+    showIdentifyResults();
+    return;
+  }
+  
+  const q = shuffledIdentifyQuestions[identifyIndex];
+  document.getElementById('identify-progress').textContent = `${identifyIndex + 1}/5`;
+  document.getElementById('identify-question').innerHTML = q.q;
+  
+  const optionsDiv = document.getElementById('identify-options');
+  optionsDiv.innerHTML = '';
+  
+  // Create array of methods with their original indices
+  const methodsWithIndices = q.methods.map((method, idx) => ({
+    method: method,
+    originalIdx: idx
+  }));
+  
+  // Shuffle the methods
+  const shuffledMethods = shuffleArray(methodsWithIndices);
+  
+  // Store the correct answer's new position
+  const correctMethod = q.methods[q.correct];
+  const correctNewIdx = shuffledMethods.findIndex(item => item.method === correctMethod);
+  currentMethodsMap[identifyIndex] = correctNewIdx;
+  
+  shuffledMethods.forEach((item, idx) => {
+    const btn = document.createElement('button');
+    btn.textContent = item.method;
+    btn.onclick = () => checkIdentifyAnswer(idx);
+    optionsDiv.appendChild(btn);
+  });
+  
+  document.getElementById('identify-result').classList.remove('show');
+}
+
+function checkIdentifyAnswer(selected) {
+  const q = shuffledIdentifyQuestions[identifyIndex];
+  const result = document.getElementById('identify-result');
+  const correctIdx = currentMethodsMap[identifyIndex];
+  
+  if (selected === correctIdx) {
+    identifyCorrect++;
+    result.className = 'game-result result-correct show';
+    result.innerHTML = `✅ Correct! ${q.explain}`;
+  } else {
+    result.className = 'game-result result-wrong show';
+    result.innerHTML = `❌ Not quite! The best method is: <strong>${q.methods[q.correct]}</strong><br>${q.explain}`;
+  }
+  
+  document.getElementById('identify-score').textContent = identifyCorrect;
+  
+  document.querySelectorAll('#identify-options button').forEach(btn => btn.disabled = true);
+  
+  setTimeout(() => {
+    identifyIndex++;
+    loadIdentifyQuestion();
+  }, 3000);
+}
+
+function showIdentifyResults() {
+  const result = document.getElementById('identify-result');
+  const grade = identifyCorrect === 5 ? 'A+' : identifyCorrect === 4 ? 'A' : identifyCorrect === 3 ? 'B' : 'C';
+  
+  result.className = 'game-result result-final show';
+  result.innerHTML = `
+    <div style="font-size: 28px; margin-bottom: 15px;">🎓 QUIZ COMPLETE!</div>
+    <div>Score: ${identifyCorrect}/5 | Grade: <strong>${grade}</strong></div>
+    <div style="margin-top: 15px;">
+      <button onclick="resetIdentifyGame()">🔄 Try Again</button>
+    </div>
+  `;
+  
+  document.getElementById('identify-grade').textContent = grade;
+  document.getElementById('identify-options').innerHTML = '';
+  document.getElementById('identify-question').innerHTML = 'All done!';
+}
+
+function resetIdentifyGame() {
+  identifyIndex = 0;
+  identifyCorrect = 0;
+  currentMethodsMap = {};
+  shuffledIdentifyQuestions = shuffleArray(identifyQuestions);
+  document.getElementById('identify-score').textContent = '0';
+  document.getElementById('identify-grade').textContent = '-';
+  loadIdentifyQuestion();
+}
+
+// ========== GAME 4: LIMIT RACE ==========
+let raceTimer, raceTime = 15, raceLevel = 1, raceLives = 3, racePosition = 0;
+const raceQuestions = [
+  {q: 'lim<sub>x→3</sub> (3x+4)/(x-2)', a: 13, opts: [13, 11, 15]},
+  {q: 'lim<sub>x→-2</sub> (x²+3)', a: 7, opts: [7, 5, 9]},
+  {q: 'lim<sub>x→2</sub> x²', a: 4, opts: [4, 2, 8]},
+  {q: 'lim<sub>x→0</sub> (x+3)', a: 3, opts: [3, 0, 1]},
+  {q: 'lim<sub>x→1</sub> x³', a: 1, opts: [1, 0, 3]},
+  {q: 'lim<sub>x→3</sub> (x+1)', a: 4, opts: [4, 3, 5]},
+  {q: 'lim<sub>x→-1</sub> x²', a: 1, opts: [1, -1, 0]},
+];
+
+let currentRaceQ = 0;
+let shuffledRaceQuestions = [];
+
+function startRaceGame() {
+  raceLevel = 1;
+  raceLives = 3;
+  racePosition = 0;
+  raceTime = 15;
+  currentRaceQ = 0;
+  
+  // Shuffle questions at start
+  shuffledRaceQuestions = shuffleArray(raceQuestions);
+  
+  document.getElementById('race-level').textContent = '1';
+  document.getElementById('race-lives').textContent = '❤️❤️❤️';
+  document.getElementById('race-car').style.left = '0%';
+  document.getElementById('race-start').disabled = true;
+  document.getElementById('race-result').classList.remove('show');
+  
+  loadRaceQuestion();
+  
+  raceTimer = setInterval(() => {
+    raceTime--;
+    document.getElementById('race-timer').textContent = raceTime + 's';
+    
+    if (raceTime <= 0) {
+      loseLife();
+    }
+  }, 1000);
+}
+
+function loadRaceQuestion() {
+  if (currentRaceQ >= shuffledRaceQuestions.length) {
+    // Reshuffle when we run out
+    shuffledRaceQuestions = shuffleArray(raceQuestions);
+    currentRaceQ = 0;
+  }
+  
+  const q = shuffledRaceQuestions[currentRaceQ];
+  document.getElementById('race-question').innerHTML = q.q + ' = ?';
+  
+  const optionsDiv = document.getElementById('race-options');
+  optionsDiv.innerHTML = '';
+  
+  // Shuffle options
+  const shuffledOpts = shuffleArray(q.opts);
+  
+  shuffledOpts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.onclick = () => checkRaceAnswer(opt, q.a);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function checkRaceAnswer(selected, correct) {
+  if (selected == correct) {
+    racePosition += 20;
+    document.getElementById('race-car').style.left = racePosition + '%';
+    
+    if (racePosition >= 100) {
+      winRace();
+    } else {
+      raceTime = 15;
+      currentRaceQ++;
+      loadRaceQuestion();
+    }
+  } else {
+    loseLife();
+  }
+}
+
+function loseLife() {
+  raceLives--;
+  const hearts = '❤️'.repeat(raceLives) + '🖤'.repeat(3 - raceLives);
+  document.getElementById('race-lives').textContent = hearts;
+  
+  if (raceLives <= 0) {
+    endRaceGame(false);
+  } else {
+    raceTime = 15;
+  }
+}
+
+function winRace() {
+  clearInterval(raceTimer);
+  raceLevel++;
+  document.getElementById('race-level').textContent = raceLevel;
+  
+  const result = document.getElementById('race-result');
+  result.className = 'game-result result-correct show celebrate';
+  result.innerHTML = `
+    <div style="font-size: 28px;">🏁 LEVEL ${raceLevel - 1} COMPLETE!</div>
+    <div style="margin-top: 15px;">
+      <button onclick="continueRace()">➡️ Next Level</button>
+      <button onclick="endRaceGame(true)">🏆 Finish</button>
+    </div>
+  `;
+}
+
+function continueRace() {
+  racePosition = 0;
+  raceTime = Math.max(10, 15 - raceLevel);
+  document.getElementById('race-car').style.left = '0%';
+  document.getElementById('race-result').classList.remove('show');
+  loadRaceQuestion();
+  
+  raceTimer = setInterval(() => {
+    raceTime--;
+    document.getElementById('race-timer').textContent = raceTime + 's';
+    if (raceTime <= 0) loseLife();
+  }, 1000);
+}
+
+function endRaceGame(won) {
+  clearInterval(raceTimer);
+  document.getElementById('race-start').disabled = false;
+  
+  const result = document.getElementById('race-result');
+  result.className = 'game-result result-final show';
+  
+  if (won) {
+    result.innerHTML = `
+      <div style="font-size: 28px; margin-bottom: 15px;">🏆 RACE COMPLETE!</div>
+      <div>Final Level: <strong>${raceLevel}</strong></div>
+      <div style="margin-top: 10px; font-size: 24px;">CHAMPION! 🎉</div>
+    `;
+  } else {
+    result.innerHTML = `
+      <div style="font-size: 28px; margin-bottom: 15px;">🏁 GAME OVER</div>
+      <div>Reached Level: <strong>${raceLevel}</strong></div>
+      <div style="margin-top: 10px;">Try again to beat your record!</div>
+    `;
+  }
+}
+
+// Initialize
+window.addEventListener('load', () => {
+  drawPiece();
+  shuffledIdentifyQuestions = shuffleArray(identifyQuestions);
+  loadIdentifyQuestion();
+  initMatchGame();
+});
+</script>
+
+</body>
+</html>
