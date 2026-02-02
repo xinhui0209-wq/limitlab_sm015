@@ -572,7 +572,21 @@ canvas {
   color: #555;
   font-weight: 600;
 }
+  
+.absolute-images img {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
 
+.absolute-images figcaption {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #555;
+  font-weight: 600;
+}
+  
 @media (max-width: 768px) {
   header h1 { font-size: 36px; }
   .match-board { grid-template-columns: 1fr; }
@@ -704,6 +718,7 @@ canvas {
 
   <h3>3. Absolute Value Limits</h3>
   <div class="ex-box">
+    <img src="./absolute.png" alt="Limit for absolute value" width="300">
     <p><strong>Example:</strong> lim<sub>x→3</sub> |x - 3|</p>
     <div class="step-box">
       lim<sub>x→3⁻</sub> -(x-3) = 0<br>
@@ -1796,3 +1811,4 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
