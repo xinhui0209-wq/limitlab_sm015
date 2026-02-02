@@ -664,15 +664,8 @@ canvas {
   
   <div class="ex-box">
     <p style="font-weight: bold; font-size: 18px;">Example: Evaluate lim<sub>x→3</sub> [(x² - 9)/(x - 3)]</p>
-    
-    <div class="step-box">
-      <strong>Step 1:</strong> Try direct substitution with x = 3
-      <div class="notation">(3² - 9)/(3 - 3) = (9 - 9)/(0) = 0/0</div>
-    </div>
 
-    <div class="warn-box">⚠️ 0/0 is INDETERMINATE! We cannot determine the answer this way.</div>
-
-    <div class="step-box"><strong>Step 2:</strong> Approach x = 3 from both sides</div>
+    <div class="step-box"><strong>Step 1:</strong> Approach x = 3 from both sides</div>
   </div>
 
   <h3>📊 The Approach Table</h3>
@@ -782,6 +775,12 @@ canvas {
   
   <h3>Method 2: Factorization</h3>
   <div class="ex-box">
+     <div class="step-box">
+      <strong>Step 1:</strong> Try direct substitution with x = 3
+      <div class="notation">(3² - 9)/(3 - 3) = (9 - 9)/(0) = 0/0</div>
+    </div>
+
+    <div class="warn-box">⚠️ 0/0 is INDETERMINATE! We cannot determine the answer this way.</div>
     <p><strong>Example:</strong> lim<sub>x→3</sub> [(x² - 9)/(x - 3)]
       If cannot direct substitute the value, try out factorization. When you get 0/0 :</p>
     <div class="step-box">
@@ -804,7 +803,9 @@ canvas {
 
   <h3>Method 3: Conjugate Multiplication</h3>
   <div class="ex-box">
-    <p><strong>Example:</strong> lim<sub>x→-1</sub> [(√(2+x) - 1)/(x+1)]</p>
+    <p><strong>Example:</strong> lim<sub>x→-1</sub> [(√(2+x) - 1)/(x+1)]
+      Finding limit using multiplication of conjugates method for functions related to surd
+    </p>
     <div class="step-box">
       Step 1: Multiply by conjugate: [√(2+x) + 1]/[√(2+x) + 1]<br>
       Step 2: Simplify numerator: (2+x-1) = x+1<br>
@@ -1842,6 +1843,7 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
 
 
 
