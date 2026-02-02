@@ -590,6 +590,30 @@ canvas {
   color: #555;
   font-weight: 600;
 }
+
+  .infinite-images {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.infinite-images figure {
+  text-align: center;
+}
+
+  .infinite-images img {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.infinite-images figcaption {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #555;
+  font-weight: 600;
+}
   
 @media (max-width: 768px) {
   header h1 { font-size: 36px; }
@@ -600,6 +624,7 @@ canvas {
   h2 { font-size: 26px; }
   .asymptote-images, .continuity-images { flex-direction: column; align-items: center; }
 }
+  
 </style>
 </head>
 <body>
@@ -734,6 +759,7 @@ canvas {
 
   <h3>4. Infinite Limits</h3>
   <div class="ex-box">
+    <img src="./infinite.jpeg" alt="Infinite Limit" width="300">
     <p>When a function grows without bound as x approaches a value.</p>
     <div class="notation">lim<sub>x→0</sub> 1/x² = ∞</div>
     <div class="step-box">
@@ -1816,6 +1842,7 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
 
 
 
