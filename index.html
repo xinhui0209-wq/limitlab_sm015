@@ -644,15 +644,18 @@ canvas {
   <h3>2. Piecewise Function Example</h3>
   <div class="ex-box">
     <p><strong>h(x) = { 4 - x², when x ≤ 1 | 2 + x², when x > 1 }</strong></p>
-    
-    <canvas id="pieceCanvas" width="700" height="400" style="max-width:100%;border:3px solid #ddd;border-radius:15px;margin:20px auto;display:block;"></canvas>
+   <div class="piecewise-images">
+  <figure>
+    <img src="./piecewise.jpeg" alt="Piecewise Function">
+    <figcaption>Piecewise Function Graph</figcaption>
+  </figure> 
     
     <div style="text-align:center;margin:15px 0;">
       <span style="display:inline-block;width:15px;height:15px;background:#ff6b6b;border-radius:50%;margin:0 5px;"></span> Left: 4-x²
       <span style="display:inline-block;width:15px;height:15px;background:#4ecdc4;border-radius:50%;margin:0 5px 0 20px;"></span> Right: 2+x²
       <span style="display:inline-block;width:15px;height:15px;background:#ffd93d;border-radius:50%;margin:0 5px 0 20px;"></span> Point (1, 3)
     </div>
-    
+
     <div class="step-box">
       <strong>Left-hand limit:</strong> lim<sub>x→1⁻</sub> (4-x²) = 3<br>
       <strong>Right-hand limit:</strong> lim<sub>x→1⁺</sub> (2+x²) = 3<br>
@@ -686,9 +689,17 @@ canvas {
 <section id="methods">
   <h2>🔧 Solution Methods</h2>
 
-  <h3>Method 1: Factorization</h3>
+ 
+  <h3>Method 1: Direct Substitution</h3>
+  <div class="hint-box">
+    <p>When the function is continuous at the point, simply substitute the value of x.</p>
+    <p><strong>Example:</strong> lim<sub>x→2</sub> (x² + 1)/(x² - 1) = (4+1)/(4-1) = 5/3</p>
+  </div>
+  
+  <h3>Method 2: Factorization</h3>
   <div class="ex-box">
-    <p><strong>Example:</strong> lim<sub>x→3</sub> [(x² - 9)/(x - 3)]</p>
+    <p><strong>Example:</strong> lim<sub>x→3</sub> [(x² - 9)/(x - 3)]
+      If cannot direct substitute the value, try out factorization. When you get 0/0 :</p>
     <div class="step-box">
       Step 1: Factor numerator: (x² - 9) = (x-3)(x+3)<br>
       Step 2: Cancel common factors: [(x-3)(x+3)]/(x-3) = x+3<br>
@@ -707,7 +718,7 @@ canvas {
     <div class="notation"><strong>Answer: 27</strong></div>
   </div>
 
-  <h3>Method 2: Conjugate Multiplication</h3>
+  <h3>Method 3: Conjugate Multiplication</h3>
   <div class="ex-box">
     <p><strong>Example:</strong> lim<sub>x→-1</sub> [(√(2+x) - 1)/(x+1)]</p>
     <div class="step-box">
@@ -718,12 +729,7 @@ canvas {
     </div>
     <div class="notation"><strong>Answer: 1/2</strong></div>
   </div>
-
-  <h3>Method 3: Direct Substitution</h3>
-  <div class="hint-box">
-    <p>When the function is continuous at the point, simply substitute the value of x.</p>
-    <p><strong>Example:</strong> lim<sub>x→2</sub> (x² + 1)/(x² - 1) = (4+1)/(4-1) = 5/3</p>
-  </div>
+  
 </section>
 
 <!-- LIMITS AT INFINITY -->
@@ -776,14 +782,7 @@ canvas {
     <div class="notation"><strong>Answer: -1</strong></div>
   </div>
 
-  <h3>Polynomial Degrees Quick Rules</h3>
-  <div class="hint-box">
-    <p><strong>Quick Rules:</strong></p>
-    <p>• If degree of numerator > denominator: limit = ±∞</p>
-    <p>• If degree of numerator < denominator: limit = 0</p>
-    <p>• If degree of numerator = denominator: limit = ratio of leading coefficients</p>
-  </div>
-</section>
+
 
 <!-- ASYMPTOTES -->
 <section id="asymptotes">
@@ -1891,6 +1890,7 @@ window.addEventListener('load', () => {
 </body>
 
 </html>
+
 
 
 
