@@ -1182,11 +1182,11 @@ $$
 
 <div class="ex-box">
   <p><strong>Q10:</strong> 
-    \( \lim_{x \to \infty} \sqrt{\frac{2x+1}{5x-2}} = ? \)
+    \( \lim_{x \to \infty} \sqrt{\frac{5x+1}{7x-3}} = ? \)
   </p>
   <button onclick="checkQ(10,'2/5',this)">2/5</button>
   <button onclick="checkQ(10,'\sqrt{5}/2',this)">√5/2</button>
-  <button onclick="checkQ(10,'\sqrt{2/5}',this)">√(2/5)</button>
+  <button onclick="checkQ(10,'\sqrt{5/7}',this)">√(5/)</button>
   <div id="f10" class="quiz-fb"></div>
 </div>
 
@@ -1208,11 +1208,11 @@ $$
 
 <div class="ex-box">
   <p><strong>Q13:</strong> 
-    For \( f(x) = \frac{x}{x-2} \), find the vertical and horizontal asymptotes.
+    For \( f(x) = \frac{x-2}{(x+2)^2} \), find the vertical and horizontal asymptotes.
   </p>
   <button onclick="checkQ(13,'x=1, y=2',this)">x=1, y=2</button>
-  <button onclick="checkQ(13,'x=-2, y=1',this)">x=-2, y=1</button>
   <button onclick="checkQ(13,'x=2, y=1',this)">x=2, y=1</button>
+  <button onclick="checkQ(13,'x=-2, y=0',this)">x=-2, y=0</button>
   <div id="f13" class="quiz-fb"></div>
 </div>
 
@@ -1438,10 +1438,10 @@ const qAns = {
   7: '-20√3/3',
   8: '2/5',
   9: -1,
-  10: '√(2/5)',
+  10: '√(5/7)',
   11: 27,
   12: '+∞',
-  13: 'x=2, y=1'
+  13: 'x=-2, y=0'
 };
 
 function checkQ(q, ans, btn) {
@@ -1980,6 +1980,7 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
 
 
 
