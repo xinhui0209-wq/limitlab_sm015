@@ -1426,19 +1426,19 @@ function showGame(game) {
   }
 }
 
-// Quiz System
+// Quiz System - BUG FIX #1: Fixed answers for Q3, Q7, Q10
 let qScore = 0, qDone = new Set();
 const qAns = {
   1: 13, 
   2: '5/3', 
-  3: '√2', 
+  3: '\\sqrt{2}',  // ✅ FIXED: Was '√2', now matches button value '\sqrt{2}'
   4: 7, 
   5: -5, 
   6: '1/2', 
-  7: '-20√3/3',
+  7: '-20\\sqrt{3}/3',  // ✅ FIXED: Was '-20√3/3', now matches button value '-20\sqrt{3}/3'
   8: '2/5',
   9: -1,
-  10: '√(5/7)',
+  10: '\\sqrt{5/7}',  // ✅ FIXED: Was '√(5/7)', now matches button value '\sqrt{5/7}'
   11: 27,
   12: '+∞',
   13: 'x=-2, y=0'
@@ -1984,6 +1984,7 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
 
 
 
