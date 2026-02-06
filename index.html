@@ -801,15 +801,25 @@ $$
     </div>
 
     <div class="warn-box">⚠️ 0/0 is INDETERMINATE! We cannot determine the answer this way.</div>
-    <p><strong>Example:</strong> lim<sub>x→3</sub> [(x² - 9)/(x - 3)]
-      
-      If cannot direct substitute the value, try out factorization.  :</p>
-    <div class="step-box">
-      Step 1: Factor numerator: (x² - 9) = (x-3)(x+3)<br>
-      Step 2: Cancel common factors: [(x-3)(x+3)]/(x-3) = x+3<br>
-      Step 3: Substitute: 3 + 3 = 6
-    </div>
-    <div class="notation"><strong>Answer: 6</strong></div>
+  <p><strong>Example:</strong></p>
+$$
+\lim_{x \to 3} \frac{x^2 - 9}{x - 3}
+$$
+<p>If cannot directly substitute, try factorization.</p>
+
+<div class="step-box">
+$$
+\text{Step 1: } x^2 - 9 = (x-3)(x+3)
+$$
+$$
+\text{Step 2: } \frac{(x-3)(x+3)}{x-3} = x+3
+$$
+$$
+\text{Step 3: } 3 + 3 = 6
+$$
+</div>
+
+<div class="notation"><strong>Answer: 6</strong></div>
   </div>
 
   <div class="ex-box">
@@ -824,16 +834,30 @@ $$
 
   <h3>Method 3: Conjugate Multiplication</h3>
   <div class="ex-box">
-    <p><strong>Example:</strong> lim<sub>x→-1</sub> [(√(2+x) - 1)/(x+1)]
-      Finding limit using multiplication of conjugates method for functions related to surd
-    </p>
-    <div class="step-box">
-      Step 1: Multiply by conjugate: [√(2+x) + 1]/[√(2+x) + 1]<br>
-      Step 2: Simplify numerator: (2+x-1) = x+1<br>
-      Step 3: Cancel: (x+1)/[(x+1)(√(2+x)+1)] = 1/(√(2+x)+1)<br>
-      Step 4: Substitute x = -1: 1/(√1+1) = 1/2
-    </div>
-    <div class="notation"><strong>Answer: 1/2</strong></div>
+    <p><strong>Example:</strong></p>
+$$
+\lim_{x \to -1} \frac{\sqrt{2+x}-1}{x+1}
+$$
+<p>Finding limit using multiplication of conjugates.</p>
+
+<div class="step-box">
+$$
+\text{Step 1: Multiply by conjugate }
+\frac{\sqrt{2+x}+1}{\sqrt{2+x}+1}
+$$
+$$
+\text{Step 2: } (2+x-1)=x+1
+$$
+$$
+\text{Step 3: } \frac{x+1}{(x+1)(\sqrt{2+x}+1)}
+= \frac{1}{\sqrt{2+x}+1}
+$$
+$$
+\text{Step 4: } x=-1 \Rightarrow \frac{1}{\sqrt{1}+1}=\frac{1}{2}
+$$
+</div>
+
+<div class="notation"><strong>Answer: 1/2</strong></div>
   </div>
   
 </section>
@@ -851,27 +875,58 @@ $$
 
   <h3>Example 1: Basic Rational Function</h3>
   <div class="ex-box">
-    <p><strong>Find:</strong> lim<sub>x→∞</sub> (2x+1)/(5x-2)</p>
-    <div class="step-box">
-      Step 1: Divide by x (highest power in denominator):<br>
-      = lim<sub>x→∞</sub> (2 + 1/x)/(5 - 2/x)<br><br>
-      Step 2: As x→∞, terms with x in denominator → 0:<br>
-      = (2 + 0)/(5 - 0) = 2/5
-    </div>
-    <div class="notation"><strong>Answer: 2/5</strong></div>
+   <p><strong>Find:</strong></p>
+$$
+\lim_{x \to \infty} \frac{2x^2+1}{5x^2-2}
+$$
+
+<div class="step-box">
+$$
+\text{Step 1: Divide by } x^2
+$$
+$$
+= \lim_{x \to \infty} \frac{2+\frac{1}{x^2}}{5-\frac{2}{x^2}}
+$$
+$$
+\text{Step 2: As } x \to \infty,\ \frac{1}{x^2} \to 0
+$$
+$$
+= \frac{2}{5}
+$$
+</div>
+
+<div class="notation"><strong>Answer: 2/5</strong></div>
   </div>
 
   <h3>Example 2: Square Root Function</h3>
   <div class="ex-box">
-    <p><strong>Find:</strong> lim<sub>x→+∞</sub> √[(2x+1)/(5x-2)]</p>
-    <div class="step-box">
-      Step 1: Take limit inside the square root:<br>
-      = √[lim<sub>x→∞</sub> (2x+1)/(5x-2)]<br><br>
-      Step 2: Divide by x: √[(2+1/x)/(5-2/x)]<br><br>
-      Step 3: As x→∞:<br>
-      = √(2/5)
-    </div>
-    <div class="notation"><strong>Answer: √(2/5)</strong></div>
+   <p><strong>Find:</strong></p>
+$$
+\lim_{x \to \infty} \sqrt{\frac{2x+1}{5x-2}}
+$$
+
+<div class="step-box">
+$$
+\text{Step 1: Take limit inside square root}
+$$
+$$
+= \sqrt{\lim_{x \to \infty} \frac{2x+1}{5x-2}}
+$$
+$$
+\text{Step 2: Divide by } x
+$$
+$$
+= \sqrt{\frac{2+\frac{1}{x}}{5-\frac{2}{x}}}
+$$
+$$
+\text{Step 3: As } x \to \infty
+$$
+$$
+= \sqrt{\frac{2}{5}}
+$$
+</div>
+
+<div class="notation"><strong>Answer: √(2/5)</strong></div>
   </div>
 
   <h3>Example 3: Limit at Negative Infinity</h3>
@@ -1864,6 +1919,7 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
 
 
 
