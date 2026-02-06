@@ -1550,7 +1550,11 @@ function loadSpeedQuestion() {
   });
 }
 
+// BUG FIX #2: Prevent scoring after time runs out
 function checkSpeedAnswer(selected, correct) {
+  // ✅ FIXED: Check if time is up before allowing answers
+  if (speedTime <= 0) return;
+  
   if (selected == correct) {
     speedScore++;
     speedStreak++;
@@ -1980,6 +1984,7 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
 
 
 
