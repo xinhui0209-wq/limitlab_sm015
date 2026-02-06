@@ -1888,12 +1888,16 @@ function loadRaceQuestion() {
   shuffledOpts.forEach(opt => {
     const btn = document.createElement('button');
     btn.textContent = opt;
+    btn.disabled = false; // ✅ FIX: Ensure buttons start enabled
     btn.onclick = () => checkRaceAnswer(opt, q.a);
     optionsDiv.appendChild(btn);
   });
 }
 
 function checkRaceAnswer(selected, correct) {
+  // ✅ FIX: Don't allow answers when lives are 0
+  if (raceLives <= 0) return;
+  
   if (selected == correct) {
     racePosition += 20;
     document.getElementById('race-car').style.left = racePosition + '%';
@@ -1916,12 +1920,15 @@ function loseLife() {
   document.getElementById('race-lives').textContent = hearts;
   
   if (raceLives <= 0) {
+    clearInterval(raceTimer);
+    // ✅ FIX: Disable all answer buttons when game over
+    document.querySelectorAll('#race-options button').forEach(btn => btn.disabled = true);
     endRaceGame(false);
   } else {
     raceTime = 15;
   }
 }
-
+  
 function winRace() {
   clearInterval(raceTimer);
   raceLevel++;
@@ -1984,6 +1991,7 @@ window.addEventListener('load', () => {
 
 </body>
 </html>
+
 
 
 
